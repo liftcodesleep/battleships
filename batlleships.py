@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 import random
-
+#comment
 MAP_X = 10
 MAP_Y = 10
 MAP_X_LETTERS = "".join([chr(ord("A") + x) for x in xrange(MAP_X)])
