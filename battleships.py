@@ -14,11 +14,11 @@ fleets = [{
         'G': {'length': 5},
         },
         {
-        'O': {'length':random.choice(MAP_X + 1)},
-        'Q': {'length':random.choice(MAP_X + 1)},
-        'P': {'length':random.choice(MAP_X + 1)},
-        'G': {'length':random.choice(MAP_X + 1)},
-        'D': {'length':random.choice(MAP_X + 1)},
+        'O': {'length':random.choice(range(11))},
+        'Q': {'length':random.choice(range(11))},
+        'P': {'length':random.choice(range(11))},
+        'G': {'length':random.choice(range(11))},
+        'D': {'length':random.choice(range(11))},
         }]
 fleet = random.choice(fleets)
 class map:
