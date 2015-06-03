@@ -1,6 +1,5 @@
 #! /usr/bin/env python
 import random
-#comment
 MAP_X = 10
 MAP_Y = 10
 MAP_X_LETTERS = "".join([chr(ord("A") + x) for x in xrange(MAP_X)])
@@ -23,7 +22,7 @@ fleets = [{
         }]
 fleet = random.choice(fleets)
 class map:
-        def make_map(self):
+        def make(self):
             global GAME_MAP
             GAME_MAP = [[DEFAULT_SPACE for x in xrange(MAP_X)] for y in xrange(MAP_Y)]
         
@@ -44,13 +43,13 @@ class map:
                 raise ValueError
             GAME_MAP[coords[1]][coords[0]] = value
         
-        def print_map(self):
+        def print_(self):
             print "   %s" % " ".join(MAP_X_LETTERS.upper())
             for row, data in enumerate(GAME_MAP):
                 print "%02s %s" % (row + 1, " ".join(data))
 
 class boats:
-        def place_fleet(self, fleet):
+        def place(self, fleet):
             for item in fleet:
                 place = place_ship(fleet[item]['length'], item)
                 coord = place[0]
@@ -58,7 +57,7 @@ class boats:
                 fleet[item] = {'length': fleet[item]['length'],
                                'coord': coord, 'direction': direction}
         
-        def place_ship(self, length, char):
+        def make(self, length, char):
             while True:
                 coord = random.choice(xrange(MAP_X)), random.choice(xrange(MAP_Y))
                 direction = random.choice([(0, 1), (1, 0)])
@@ -78,7 +77,7 @@ class boats:
             return coord, direction
 
 if __name__ == '__main__':
-    make_map()
-    print_map()
-    place_fleet(fleet)
-    print_map()
+    map.make(self)
+    map.print_(self)
+    boats.place(self, fleet)
+    map.print_(self)
