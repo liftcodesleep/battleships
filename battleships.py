@@ -6,14 +6,22 @@ MAP_Y = 10
 MAP_X_LETTERS = "".join([chr(ord("A") + x) for x in xrange(MAP_X)])
 GAME_MAP = None
 DEFAULT_SPACE = "~"
-fleet = {
+fleets = [{
         'O': {'length': 5},
         'B': {'length': 5},
         'D': {'length': 5},
         'E': {'length': 5},
         'Y': {'length': 5},
         'G': {'length': 5},
-        }
+        },
+        {
+        'O': {'length':random.choice(MAP_X + 1)},
+        'Q': {'length':random.choice(MAP_X + 1)},
+        'P': {'length':random.choice(MAP_X + 1)},
+        'G': {'length':random.choice(MAP_X + 1)},
+        'D': {'length':random.choice(MAP_X + 1)},
+        }]
+fleet = random.choice(fleets)
 class map:
         def make_map(self):
             global GAME_MAP
