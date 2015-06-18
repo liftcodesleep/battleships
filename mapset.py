@@ -3,8 +3,8 @@ import random
 
 class Mapset:
     def __init__(self):
-        self.boats = gamemap.GameMap()
-        self.shots = gamemap.GameMap()
+        self.boatsmap = gamemap.GameMap()
+        self.shotsmap = gamemap.GameMap()
         fleets = [{
             'O': {'length': 2},
             'B': {'length': 3},
@@ -13,33 +13,34 @@ class Mapset:
             'G': {'length': 5},
         },
         {
-            'O': {'length': random.choice(range(6))},
-            'Q': {'length': random.choice(range(6))},
-            'P': {'length': random.choice(range(6))},
-            'G': {'length': random.choice(range(6))},
-            'D': {'length': random.choice(range(6))},
+            'O': {'length': random.choice(range((5) + 1))},
+            'Q': {'length': random.choice(range((5) + 1))},
+            'P': {'length': random.choice(range((5) + 1))},
+            'G': {'length': random.choice(range((5) + 1))},
+            'D': {'length': random.choice(range((5) + 1))},
         }]
         fleet = random.choice(fleets)
-        self.boats.place_fleet(fleet)
+        self.boatsmap.place_fleet(fleet)
 
     def random_shot(self):
-        at = self.boats.rand_coord()
-        if self.boats.shoot(at):
+        at = self.boatsmap.rand_coord()
+        if self.boatsmap.shoot(at):
             return at
         return False
-
 
     def when_shot(self):
         origin = self.random_shot()
         if origin:
             x, y = origin
-            targets = [((x + 1), y), ((x - 1), y), (x, (y + 1)), (x, (y - 1)),]
-            self.boats.shoot(random.choice(targets))
+            direction = {'East' : ((x + 1), y), 'West' : ((x - 1), y), 'South' : (x, (y + 1)), 'North' : (x, (y - 1)),}
+            followup = random.choice(direction)
+            self.boatsmap.shoot(followup)
+
 
 
     def display(self):
-        self.boats.display()
-        self.shots.display()
+        self.boatsmap.display()
+        self.shotsmap.display()
 
 if __name__ == '__main__':
     thing = Mapset()
