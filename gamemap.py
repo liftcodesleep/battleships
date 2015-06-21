@@ -3,6 +3,7 @@
 import boat
 import random
 
+
 class GameMap:
 
     def __init__(self):
@@ -12,7 +13,7 @@ class GameMap:
         self.max_y = 10
         self.fleet = []
         self.x_labels = "".join([chr(ord("A") + x)
-                                for x in xrange(self.max_x)])
+                                 for x in xrange(self.max_x)])
         self.y_labels = range(1, self.max_y + 1)
         self.map = [[self.empty for x in xrange(
                      self.max_x)] for y in xrange(self.max_y)]
@@ -37,7 +38,12 @@ class GameMap:
         return self.map[coords[1]][coords[0]] == self.empty
 
     def rand_coord(self):
-        return (random.choice(xrange(self.max_x)), random.choice(xrange(self.max_y)))
+        return (
+            random.choice(
+                xrange(
+                    self.max_x)), random.choice(
+                xrange(
+                    self.max_y)))
 
     def display(self):
         print "   %s" % " ".join(self.x_labels.upper())
@@ -46,20 +52,32 @@ class GameMap:
 
     def place_boat(self, boat):
         while True:
-            coord = random.choice(xrange(self.max_x)), random.choice(xrange(self.max_y))
+            coord = random.choice(
+                xrange(
+                    self.max_x)), random.choice(
+                xrange(
+                    self.max_y))
             direction = random.choice([(0, 1), (1, 0)])
             found = False
-            if (coord[0] + (boat.length * direction[0]) >= self.max_x or coord[1] + (boat.length * direction[1]) >= self.max_y):
+            if (coord[0] +
+                (boat.length *
+                 direction[0]) >= self.max_x or coord[1] +
+                (boat.length *
+                 direction[1]) >= self.max_y):
                 continue
             for i in xrange(boat.length):
-                checkpoint = ((coord[0] + (i * direction[0])), (coord[1] + (i * direction[1])))
+                checkpoint = (
+                    (coord[0] + (i * direction[0])), (coord[1] + (i * direction[1])))
                 if self.get_at(checkpoint) != self.empty:
                     found = True
                     break
             if not found:
                 break
         for i in xrange(boat.length):
-            self.set_at(((coord[0] + i * direction[0]), (coord[1] + i * direction[1])), boat.char)
+            self.set_at(
+                ((coord[0] + i * direction[0]),
+                 (coord[1] + i * direction[1])),
+                boat.char)
         boat.place(coord, direction)
         return coord, direction
 
@@ -68,8 +86,6 @@ class GameMap:
             ba = boat.Boat(k, v['length'])
             coord, direction = self.place_boat(ba)
             self.fleet.append(ba)
-
-
 
     def shoot(self, coord,):
         for boat in self.fleet:
@@ -93,7 +109,7 @@ if __name__ == "__main__":
         'E': {'length': 4},
         'G': {'length': 5},
     },
-    {
+        {
         'O': {'length': random.choice(range(6))},
         'Q': {'length': random.choice(range(6))},
         'P': {'length': random.choice(range(6))},

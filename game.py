@@ -1,11 +1,14 @@
 import mapset
 import random
+
+
 class Game:
+
     def __init__(self):
         self.p1 = mapset.Player(raw_input('Player 1\'s name?: '))
         self.p2 = mapset.Player(raw_input('Player 2\'s name?: '))
-        self.counter = random.choice([0,1])
-        self.names = [self.p1.name, self.p2.name,]
+        self.counter = random.choice([0, 1])
+        self.names = [self.p1.name, self.p2.name, ]
         self.players = [self.p1, self.p2]
 
     def current(self):
