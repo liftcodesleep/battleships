@@ -1,8 +1,9 @@
 import gamemap
 import random
 
-class Mapset:
-    def __init__(self):
+class Player:
+    def __init__(self, name):
+        self.name = name
         self.boatsmap = gamemap.GameMap()
         self.shotsmap = gamemap.GameMap()
         fleets = [{
@@ -28,15 +29,6 @@ class Mapset:
             return at
         return False
 
-    def when_shot(self):
-        origin = self.random_shot()
-        if origin:
-            x, y = origin
-            direction = {'East' : ((x + 1), y), 'West' : ((x - 1), y), 'South' : (x, (y + 1)), 'North' : (x, (y - 1)),}
-            followup = random.choice(direction)
-            self.boatsmap.shoot(followup)
-
-
 
     def display(self):
         self.boatsmap.display()
@@ -44,10 +36,10 @@ class Mapset:
 
 if __name__ == '__main__':
     thing = Mapset()
-    thing.when_shot()
-    thing.when_shot()
-    thing.when_shot()
-    thing.when_shot()
-    thing.when_shot()
-    thing.when_shot()
+    thing.random_shot()
+    thing.random_shot()
+    thing.random_shot()
+    thing.random_shot()
+    thing.random_shot()
+    thing.random_shot()
     thing.display()
