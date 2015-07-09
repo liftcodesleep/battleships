@@ -38,12 +38,14 @@ class GameMap:
         return self.map[coords[1]][coords[0]] == self.empty
 
     def rand_coord(self):
-        return (
-            random.choice(
+        while True:
+            coord = random.choice(
                 xrange(
                     self.max_x)), random.choice(
                 xrange(
-                    self.max_y)))
+                    self.max_y))
+            if self.get_at(coord) == self.empty:
+                return coord
 
     def display(self):
         print "   %s" % " ".join(self.x_labels.upper())
@@ -87,13 +89,21 @@ class GameMap:
             coord, direction = self.place_boat(ba)
             self.fleet.append(ba)
 
+    def record_shot(self, coord):
+        self.set_at(coord, self.shat)
+
     def shoot(self, coord,):
+        fleet_sunk = 0
         for boat in self.fleet:
             if boat.shot_at(coord):
                 print 'hit'
                 self.set_at(coord, self.shat)
                 if boat.is_sunk():
+                    fleet_sunk += 1
                     print 'You sunk the %s' % boat.char
+                    if fleet_sunk == len(self.fleet):
+                        print 'You won!'
+                        exit()
                 return True
         print 'miss'
         self.set_at(coord, self.shat)

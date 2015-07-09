@@ -1,33 +1,51 @@
-import mapset
+import player
 import random
 
 
 class Game:
 
-    def __init__(self):
-        self.p1 = mapset.Player(raw_input('Player 1\'s name?: '))
-        self.p2 = mapset.Player(raw_input('Player 2\'s name?: '))
+    def __init__(self, name, name2, fleet):
+        self.players = [player.Player(name), player.Player(name2)]
         self.counter = random.choice([0, 1])
-        self.names = [self.p1.name, self.p2.name, ]
-        self.players = [self.p1, self.p2]
 
     def current(self):
         return (self.counter % 2)
 
     def run(self):
-        print 'Game between ' + self.p1.name + ' and ' + self.p2.name + '! \nStart!'
-        return self.counter
+        print 'Game between %s and %s! \nStart!' %(self.players[0].name, self.players[1].name)
+        turn_counter = 0
+        while True:
+            print '------------------------------ \n------------------------------'
+            print 'It\s turn %d' % (turn_counter)
+            self.turn()
+            turn_counter += 1
 
     def turn(self):
-        cpn = self.names[self.current()]
         cp = self.players[self.current()]
-        print 'It\'s ' + str(cpn) + '\'s turn!'
-        cp.random_shot()
-        #cp.boatsmap.shoot(cp.boatsmap.xlate_coords(raw_input('Where would you like to shoot?: ')))
+        np = self.players[self.current() - 1]
+        print 'It\'s %s\'s turn!' % (cp.name)
+        print 'boats'
+        cp.boatsmap.display()
+        print 'shots'
+        cp.shotsmap.display()
+        if self.current() == 0:
+            #shot = raw_input('Where would you like to shoot?: ')
+            #target = cp.boatsmap.xlate_coords(shot)
+            target = cp.shotsmap.rand_coord()
+        else:
+            target = np.shotsmap.rand_coord()
+        np.boatsmap.shoot(target)
+        cp.shotsmap.record_shot(target)
         self.counter += 1
 
+
 if __name__ == '__main__':
-    test = Game()
+    fleet = {
+        'O': {'length': 2},
+        'B': {'length': 3},
+        'D': {'length': 3},
+        'E': {'length': 4},
+        'G': {'length': 5},
+        }
+    test = Game('Player 1', 'Computer', fleet,)
     test.run()
-    while True:
-        test.turn()
