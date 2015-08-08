@@ -28,7 +28,6 @@ class Boat:
                 return False
         return True
 
-    # Going to also need methods for recording shots/sunken-ness
 
 if __name__ == '__main__':
     pass
